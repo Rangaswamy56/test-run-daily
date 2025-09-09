@@ -26,4 +26,4 @@ with open('log.txt', 'a') as log_file:
     log_file.write(f"Incremented to {number}\n")
 
 # 4. Output the incremented number
-print(f"The incremented number is: {number}")
+print(f"The incremented number is: {number}")  # This will go to stdout (captured in output.txt)
