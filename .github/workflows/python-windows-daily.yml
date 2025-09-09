@@ -25,4 +25,4 @@ jobs:
 
       - name: Run script and store output/logs
         run: |
-          python test/count_numbers.py > output.txt 2>&1  # Redirect both stdout and stderr to output.txt
+          python test/count_numbers.py > output.txt 2> log.txt  # Redirect stdout to output.txt and stderr to log.txt
