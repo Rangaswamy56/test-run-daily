@@ -7,7 +7,7 @@ on:
 
 jobs:
   run-script:
-    runs-on: windows-latest  # Use Windows environment
+    runs-on: windows-2022  # Use Windows environment
 
     steps:
       - name: Checkout code
