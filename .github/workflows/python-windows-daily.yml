@@ -25,4 +25,10 @@ jobs:
 
       - name: Run script and store output/logs
         run: |
-          python test/count_numbers.py > output.txt 2> log.txt  # Redirect stdout to output.txt and stderr to log.txt
+          echo "Running Python script..."  # Add a simple message to track progress
+          python test/count_numbers.py > output.txt 2> log.txt || echo "Script failed" >> log.txt  # Redirect stdout to output.txt and stderr to log.txt
+          echo "Script execution complete."  # Indicate end of script execution
+          echo "Output from script:"  # Print the contents of output.txt in the workflow logs for better debugging
+          cat output.txt
+          echo "Errors from script (if any):"  # Print the contents of log.txt in the workflow logs
+          cat log.txt
