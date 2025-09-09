@@ -16,5 +16,6 @@ jobs:
           python-version: '3.x'
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run script
-        run: python test/count_numbers.py
+      - name: Run script and store output/logs
+        run: |
+          python test/count_numbers.py > output.txt 2> log.txt
