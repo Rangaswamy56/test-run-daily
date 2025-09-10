@@ -1,5 +1,5 @@
 # Define the path to the counter file (stores number as text)
-file_path = 'output.txt'
+file_path = 'test/output.txt'
 
 # 1. Try to read the current number from the file
 try:
