@@ -2,18 +2,18 @@ name: Daily Python Script Scheduler (Ubuntu)
 
 on:
   schedule:
-    - cron: '5 0 * * *'  # Runs daily at 12:01 AM UTC
-  workflow_dispatch:       # Optional manual trigger from GitHub UI
+    - cron: '5 0 * * *'  # Runs daily at 12:05 AM UTC
+  workflow_dispatch:
 
 jobs:
   run-script:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.x
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
@@ -21,14 +21,21 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f "requirements.txt" ]; then pip install -r requirements.txt; fi  # Use Bash syntax to check if file exists
+          if [ -f "requirements.txt" ]; then pip install -r requirements.txt; fi
+
+      - name: Ensure output directory
+        run: mkdir -p test
 
       - name: Run script and store output/logs
         run: |
-          echo "Running Python script..."  # Add a simple message to track progress
-          python test/count_numbers.py > output.txt 2> log.txt || echo "Script failed" >> log.txt  # Redirect stdout to output.txt and stderr to log.txt
-          echo "Script execution complete."  # Indicate end of script execution
-          echo "Output from script:"  # Print the contents of output.txt in the workflow logs for better debugging
-          cat output.txt
-          echo "Errors from script (if any):"  # Print the contents of log.txt in the workflow logs
-          cat log.txt
+          echo "Running Python script..."
+          python test/count_numbers.py > test/output.txt 2> test/log.txt
+          echo "Script execution complete."
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: script-outputs
+          path: |
+            test/output.txt
+            test/log.txt
